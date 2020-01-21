@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+
+  web-devel:
+    environment: 
+      - FLASK_APP=app
+      - FLASK_ENV=development
+    build:
+        context: .
+    ports:
+        - 5000:5000
+    volumes: [".:/app"]
+    command: ["flask", "run", "--host=0.0.0.0"]  
+
+  web-prod:
+    environment: 
+      - FLASK_APP=app
+      - FLASK_ENV=production
+    build:
+      context: .
+    ports:
+      - 80:5000
+    volumes: [".:/app"]
+    command: ["flask", "run", "--host=0.0.0.0"]
+
+
+
+  initdb:
+    build:
+        context: .
+    ports:
+         - 5000:5000
+    volumes: [".:/app"]
+    command: ["flask", "init-db"]
