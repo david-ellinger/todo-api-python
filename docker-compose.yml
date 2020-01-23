@@ -13,7 +13,7 @@ services:
         - 5000:5000
     volumes: [".:/app"]
     command: ["flask", "run", "--host=0.0.0.0"]
-    links:
+    depends_on:
       - database
 
   database:
