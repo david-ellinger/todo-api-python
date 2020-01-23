@@ -1,4 +1,5 @@
 from app.shared.shared import db
+import datetime
 class Task(db.Model):
    id = db.Column(db.Integer, primary_key=True)
    content = db.Column(db.Text)

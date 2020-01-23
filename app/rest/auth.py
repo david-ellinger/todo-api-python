@@ -5,7 +5,8 @@ from app.models.Task import Task
 import logging
 import json
 from flask import Blueprint, jsonify, current_app
-
+import datetime
+from app.shared.shared import auth
 """
 This file is used to provide some helper functions during development. It is expected to remove this later on.
 """

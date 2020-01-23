@@ -5,7 +5,6 @@ This file initializes the Flask app and boostraps various modules and interfaces
 from flask import Flask, jsonify, Blueprint
 from flask_cors import CORS
 from flasgger import Swagger
-from flask_httpauth import HTTPBasicAuth
 from app.rest.auth import authentication_blueprint
 from app.rest.home import home_blueprint
 from app.shared.shared import db
@@ -13,7 +12,6 @@ import os
 
 
 DEFAULT_BLUEPRINTS = [home_blueprint, authentication_blueprint]
-auth = HTTPBasicAuth()
 
 def create_app() -> Flask:
   app = Flask(__name__)
