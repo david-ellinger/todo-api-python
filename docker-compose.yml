@@ -13,3 +13,23 @@ services:
         - 5000:5000
     volumes: [".:/app"]
     command: ["flask", "run", "--host=0.0.0.0"]
+    links:
+      - database
+
+  database:
+    container_name: postgres
+    image: postgres:latest
+    environment:
+      - POSTGRES_USER=test
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_HOST=database
+      - POSTGRES_PORT=5432
+      - POSTGRES_DB=todo_db
+
+    ports:
+      - 5432:5432
+    volumes:
+      - db_volume:/var/lib/postgresql
+
+volumes:
+  db_volume:

@@ -29,8 +29,8 @@ def signup():
     password = request.form['password']
     email = request.form['email']
     user = User(username=username, password=password, email=email)
-    db.session.add(user)
-    db.session.commit()
+    current_app.db.session.add(user)
+    current_app.db.session.commit()
     return jsonify({
         'response': 'User ' + username + ' created successfully'
     })
@@ -40,8 +40,8 @@ def signup():
 def add_task():
     content = request.form['content']
     task = Task(content=content, user=User.query.filter_by(username=auth.username()).first())
-    db.session.add(task)
-    db.session.commit()
+    current_app.db.session.add(task)
+    current_app.db.session.commit()
     return jsonify({
         'username': auth.username(),
         'task-id': task.id,
@@ -64,8 +64,8 @@ def remove_task():
         'content': task.content,
         'task_completed': task.done
     })
-    db.session.delete(task)
-    db.session.commit()
+    current_app.db.session.delete(task)
+    current_app.db.session.commit()
     return deleted_task
 
 
@@ -80,7 +80,7 @@ def mark_task_as_done():
         })
     task.done = True
     task.end_date = datetime.datetime.now()
-    db.session.commit()
+    current_app.db.session.commit()
     return jsonify({
         'content': task.content,
         'add_date': task.add_date,

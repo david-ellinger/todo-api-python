@@ -8,19 +8,27 @@ from flasgger import Swagger
 from app.rest.auth import authentication_blueprint
 from app.rest.home import home_blueprint
 from app.shared.shared import db
+from flask_sqlalchemy import SQLAlchemy
 import os
+import app.config as config
 
 
 DEFAULT_BLUEPRINTS = [home_blueprint, authentication_blueprint]
 
 def create_app() -> Flask:
   app = Flask(__name__)
+  app.config["SQLALCHEMY_DATABASE_URI"] = config.DATABASE_CONNECTION_URI
+  app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+  app.app_context().push()
+  db = SQLAlchemy(app)
+  db.init_app(app)
+  db.create_all()
 
   CORS(app)
 
   configure_swagger(app)
   configure_blueprints(app, DEFAULT_BLUEPRINTS)
-  configure_db(app)
+  # configure_db(app)
   return app
 
 def configure_blueprints(
