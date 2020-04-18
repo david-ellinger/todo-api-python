@@ -2,6 +2,7 @@
 
 set -e
 
+ACTIVATE_PYENV="true"
 BLACK_ACTION="--check"
 ISORT_ACTION="--check-only"
 
@@ -13,30 +14,41 @@ function usage
     exit 1
 }
 
-while [[ $# -gt 0 ]]; do
-    arg="$1"
-    case $arg in
-        --format-code)
-        BLACK_ACTION="--quiet"
-        ISORT_ACTION="-y"
-        ;;
-        --no-pyenv)
-        ;;
-        -h|--help)
-        usage
-        ;;
-        "")
-        # ignore
-        ;;
-        *)
-        echo "Unexpected argument: ${arg}"
-        usage
-        ;;
-    esac
-done
+echo "${$#}"
+# while [[ $# -gt 0 ]]; do
+#     arg="$1"
+#     echo "${arg}"
+#     # case $arg in
+#     #     --format-code)
+#     #     BLACK_ACTION="--quiet"
+#     #     ISORT_ACTION="-y"
+#     #     ;;
+#     #     --no-pyenv)
+#     #     ACTIVATE_PYENV="false"
+#     #     ;;
+#     #     -h|--help)
+#     #     usage
+#     #     ;;
+#     #     "")
+#     #     # ignore
+#     #     ;;
+#     #     *)
+#     #     echo "Unexpected argument: ${arg}"
+#     #     usage
+#     #     ;;
+#     # esac
+# done
+echo "done"
 
-echo "Running iSort..."
-isort -rc ${ISORT_ACTION} .
+if [[ "${ACTIVATE_PYENV}" = "true" ]]; then
+    eval "$(pyenv init -)"
+    pyenv activate app
+fi
+
+echo "Done2"
+
+# echo "Running iSort..."
+# isort -rc ${ISORT_ACTION} .
 
 # echo "Running black..."
 # black ${BLACK_ACTION} app tests

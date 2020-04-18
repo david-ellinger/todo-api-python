@@ -17,7 +17,6 @@ psycopg2
 pytest
 pytest-mock
 pytest-flask
-bandit
 black
 flake8==3.7.9
 pytest-cov
