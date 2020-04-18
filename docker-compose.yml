@@ -18,10 +18,10 @@ services:
       - todo-api
 
   test:
-    build: ./tests/Dockerfile
+    <<: *server
     ports: ['5000:5000']
     volumes: ['.:/usr/src/app']
-    command: ['/bin/bash -c echo $PYTHONPATH']
+    command: docker/run_test.sh --format-code
     environment:
       ENV: TEST
     stdin_open: true

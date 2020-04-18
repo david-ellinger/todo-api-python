@@ -1,5 +1,4 @@
 entrypoints==0.3
-flake8==3.7.9
 Flask==1.1.2
 Flask-Script==2.0.6
 itsdangerous==1.1.0
@@ -14,3 +13,12 @@ flask_graphql
 graphene
 pymysql
 psycopg2
+# Test requirements
+pytest
+pytest-mock
+pytest-flask
+bandit
+black
+flake8==3.7.9
+pytest-cov
+isort
