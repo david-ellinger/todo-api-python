@@ -12,10 +12,10 @@ class Config(object):
 class DevelopmentConfig(Config):
     DEBUG = True
     SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI',
-                                             'postgresql+psycopg2://username:password@0.0.0.0:5401/database_name')
+                                             'postgresql+psycopg2://username:password@0.0.0.0:5432/todo_db')
 
   
 class ProductionConfig(Config):
     DEBUG = False
     SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI',
-                                             'postgresql+psycopg2://username:password@0.0.0.0:5401/database_name')
+                                             'postgresql+psycopg2://username:password@0.0.0.0:5432/todo_db')

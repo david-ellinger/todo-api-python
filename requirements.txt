@@ -13,3 +13,4 @@ flask_sqlalchemy
 flask_graphql
 graphene
 pymysql
+psycopg2
