@@ -1,0 +1,9 @@
+name: Test CI
+jobs:
+    test_job:
+        name: Test jobs
+        runs-on: ubuntu-latest
+        steps:
+            - name: Print a greeting
+              run:  |
+                echo Hello there!

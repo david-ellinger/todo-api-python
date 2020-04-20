@@ -1,0 +1,4 @@
+[flake8]
+max-complexity = 8
+builtins = unicode
+exclude = env, venv
