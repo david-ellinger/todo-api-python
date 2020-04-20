@@ -24,36 +24,14 @@ do
         usage
     fi
 done
-# while [[ $# -gt 0 ]]; do
-#     echo $arg
 
-    # case $arg in
-    #     --format-code)
-    #     BLACK_ACTION="--quiet"
-    #     ISORT_ACTION="-y"
-    #     shift
-    #     ;;
-    #     -h|--help)
-    #     usage
-    #     ;;
-    #     "")
-    #     # ignore
-    #     ;;
-    #     *)
-    #     echo "Unexpected argument: ${arg}"
-    #     usage
-    #     ;;
-    # esac
-# done
+# echo "Running iSort..."
+# isort -rc ${ISORT_ACTION} .
 
+# echo "Running black..."
+# black ${BLACK_ACTION} app tests
 
-echo "Running iSort..."
-isort -rc ${ISORT_ACTION} .
-
-echo "Running black..."
-black ${BLACK_ACTION} app tests
-
-echo "Running flake8"
-flake8 .
+# echo "Running flake8"
+# flake8 .
 
 pytest tests --cov-report html

@@ -1,0 +1,15 @@
+{
+  "debug": true,
+  "admin": "admin",
+  "adminPassword": "password",
+  "connections": {
+    "pg": {
+      "name": "Postgres TODO DB",
+      "driver": "postgres",
+      "host": "postgres",
+      "database": "todo_db",
+      "username": "sa",
+      "password": "password"
+    }
+  }
+}

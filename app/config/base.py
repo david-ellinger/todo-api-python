@@ -1,0 +1,4 @@
+class Config(object):
+    CSRF_ENABLED = True
+    SECRET_KEY = "SOME_RANDOM_SECRET_KEY"
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
