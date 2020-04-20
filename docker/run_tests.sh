@@ -2,7 +2,7 @@
 
 set -e
 
-ACTIVATE_PYENV="true"
+#ACTIVATE_PYENV="true"
 BLACK_ACTION="--check"
 ISORT_ACTION="--check-only"
 
@@ -40,10 +40,10 @@ echo "${$#}"
 # done
 echo "done"
 
-if [[ "${ACTIVATE_PYENV}" = "true" ]]; then
-    eval "$(pyenv init -)"
-    pyenv activate app
-fi
+# if [[ "${ACTIVATE_PYENV}" = "true" ]]; then
+#     eval "$(pyenv init -)"
+#     pyenv activate app
+# fi
 
 echo "Done2"
 
