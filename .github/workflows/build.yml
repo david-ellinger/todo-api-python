@@ -8,5 +8,5 @@ jobs:
             - name: Check out code
               uses: actions/checkout@v1
       
-            - name: Start tests
+            - name: Run Linters / Test
               run: docker-compose run test
