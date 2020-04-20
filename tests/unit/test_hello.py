@@ -1,2 +1,2 @@
 def test_nothing(app):
-    assert True is True
+    assert True is False

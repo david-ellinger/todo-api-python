@@ -2,7 +2,7 @@ import os
 
 
 class Config(object):
-    ENV = os.environ['ENV']
+    ENV = os.environ["ENV"]
     CSRF_ENABLED = True
     SECRET_KEY = "SOME_RANDOM_SECRET_KEY"
 
@@ -11,11 +11,15 @@ class Config(object):
 
 class DevelopmentConfig(Config):
     DEBUG = True
-    SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI',
-                                             'postgresql+psycopg2://username:password@0.0.0.0:5432/todo_db')
+    SQLALCHEMY_DATABASE_URI = os.environ.get(
+        "SQLALCHEMY_DATABASE_URI",
+        "postgresql+psycopg2://username:password@0.0.0.0:5432/todo_db",
+    )
 
-  
+
 class ProductionConfig(Config):
     DEBUG = False
-    SQLALCHEMY_DATABASE_URI = os.environ.get('SQLALCHEMY_DATABASE_URI',
-                                             'postgresql+psycopg2://username:password@0.0.0.0:5432/todo_db')
+    SQLALCHEMY_DATABASE_URI = os.environ.get(
+        "SQLALCHEMY_DATABASE_URI",
+        "postgresql+psycopg2://username:password@0.0.0.0:5432/todo_db",
+    )

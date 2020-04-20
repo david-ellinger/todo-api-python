@@ -1,7 +1,9 @@
-from flask import Flask, jsonify
-from flask_sqlalchemy import SQLAlchemy
+from flask import Flask
+
 # from config import Config
 from flask_graphql import GraphQLView
+
+# from flask_sqlalchemy import SQLAlchemy
 
 # db = SQLAlchemy()
 
@@ -12,14 +14,11 @@ def create_app():
 
     # db.init_app(app)
 
-    from app.schema import schema    
+    from app.schema import schema
+
     app.add_url_rule(
-        '/graphql',
-        view_func=GraphQLView.as_view(
-            'graphql',
-            schema=schema,
-            graphiql=True
-        )
+        "/graphql",
+        view_func=GraphQLView.as_view("graphql", schema=schema, graphiql=True),
     )
 
     # @app.before_first_request
