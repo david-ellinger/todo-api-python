@@ -1,18 +1,22 @@
 from flask import Flask
 
-# from config import Config
+from config import Config
 from flask_graphql import GraphQLView
 
-# from flask_sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy
 
-# db = SQLAlchemy()
+db = SQLAlchemy()
 
 
 def create_app():
-    app = Flask(__name__)
-    # app.config.from_object((get_environment_config()))
 
-    # db.init_app(app)
+    app = Flask(__name__)
+    app.config.from_object((get_environment_config()))
+    try:
+        db.init_app(app)
+    except Exception:
+        print("Failed to initialize database")
+        raise Exception("Bad")
 
     from app.schema import schema
 
@@ -21,24 +25,24 @@ def create_app():
         view_func=GraphQLView.as_view("graphql", schema=schema, graphiql=True),
     )
 
-    # @app.before_first_request
-    # def initialize_database():
-    #     """ Create all tables """
-    #     db.create_all()
+    @app.before_first_request
+    def initialize_database():
+        """ Create all tables """
+        db.create_all()
 
-    # @app.route("/")
-    # def hello_world():
-    #     return "Hello World!"
+    @app.route("/")
+    def hello_world():
+        return "Hello World!"
 
-    # @app.teardown_appcontext
-    # def shutdown_session(exception=None):
-    #     db.session.remove()
+    @app.teardown_appcontext
+    def shutdown_session(exception=None):
+        db.session.remove()
 
     return app
 
 
-# def get_environment_config():
-#     if Config.ENV == "PRODUCTION":
-#         return "config.ProductionConfig"
-#     elif Config.ENV == "DEVELOPMENT":
-#         return "config.DevelopmentConfig"
+def get_environment_config():
+    if Config.ENV == "PRODUCTION":
+        return "config.ProductionConfig"
+    elif Config.ENV == "DEVELOPMENT":
+        return "config.DevelopmentConfig"

@@ -8,12 +8,12 @@ services:
     restart: always
     environment:
       ENV: DEVELOPMENT
-      DB_USERNAME: sa
-      DB_PASSWORD: password
-      DB_DATABASE: todo_db
-      DB_HOST: localhost
-    depends_on:
-      - postgres
+      # DB_USERNAME: sa
+      # DB_PASSWORD: password
+      # DB_DATABASE: todo_db
+      # DB_HOST: localhost
+    links:
+      - db
     networks:
       - todo-api
 
@@ -27,7 +27,7 @@ services:
     stdin_open: true
     tty: true
 
-  postgres:
+  db:
     container_name: postgres
     image: postgres:latest
     restart: always
@@ -39,8 +39,6 @@ services:
       - '5432:5432'
     expose:
       - '3306'
-    volumes:
-      - flask-db:/var/lib/postgresql/data
     depends_on:
       - sqlpad
     networks:
@@ -57,15 +55,13 @@ services:
       SQLPAD_DEBUG: "true"
       SQLPAD_CONNECTIONS__todo__name: "TODO DB"
       SQLPAD_CONNECTIONS__todo__driver: postgres
-      SQLPAD_CONNECTIONS__todo__host: postgres
-      SQLPAD_CONNECTIONS__todo__port: 1433
+      SQLPAD_CONNECTIONS__todo__host: db
+      SQLPAD_CONNECTIONS__todo__port: 5432
       SQLPAD_CONNECTIONS__todo__database: todo_db
       SQLPAD_CONNECTIONS__todo__username: sa
       SQLPAD_CONNECTIONS__todo__password: password
     networks:
       - todo-api
-volumes:
-  flask-db:
 
 networks:
   todo-api:
