@@ -1,10 +1,12 @@
 name: Test CI
 on: push
 jobs:
-    test_job:
-        name: Test jobs
+    test:
+        name: Test
         runs-on: ubuntu-latest
         steps:
-            - name: Print a greeting
-              run:  |
-                echo Hello there!
+            - name: Check out code
+              uses: actions/checkout@v1
+      
+            - name: Start tests
+              run: docker-compose run test
