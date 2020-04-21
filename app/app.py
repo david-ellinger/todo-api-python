@@ -1,10 +1,13 @@
 import os
 
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from app.mock_data import populate
+
 # from flask_graphql import GraphQLView
 from app.database import db
+from app.mock_data import populate
+
+# from flask_sqlalchemy import SQLAlchemy
+
 
 def create_app():
 
@@ -52,4 +55,3 @@ def load_config(app):
 # This is required for flask to bootstrap without gunicorn for development
 if os.environ.get("FLASK_DEBUG"):
     app = create_app()
-

@@ -5,3 +5,10 @@
 # Docker Commands
 `docker-compose run --service-ports server`
 `docker-compose run test`
+
+# Environment
+- CI:
+   - Github Actions
+- Hosting:
+   - TBD
+

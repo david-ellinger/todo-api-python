@@ -25,13 +25,13 @@ do
     fi
 done
 
-# echo "Running iSort..."
-# isort -rc ${ISORT_ACTION} .
+echo "Running iSort..."
+isort -rc ${ISORT_ACTION} .
 
-# echo "Running black..."
-# black ${BLACK_ACTION} app tests
+echo "Running black..."
+black ${BLACK_ACTION} app tests
 
-# echo "Running flake8"
-# flake8 .
+echo "Running flake8"
+flake8 .
 
 pytest tests --cov-report html

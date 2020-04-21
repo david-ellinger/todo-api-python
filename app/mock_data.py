@@ -1,6 +1,7 @@
-from app.models import Todo, Category, Priority
-from app.database import db
 from flask import current_app
+
+from app.database import db
+from app.models import Priority
 
 
 def populate(count):
@@ -25,5 +26,5 @@ def populate(count):
 
         db.session.add_all([priority_one, priority_two, priority_three])
 
-	# for i in range(row_count):
 
+# for i in range(row_count):
