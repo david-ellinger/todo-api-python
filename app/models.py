@@ -1,6 +1,9 @@
 # from flask.ext.sqlalchemy import sqlalchemy
 
 import datetime
+import uuid
+
+from sqlalchemy.dialects.postgresql import UUID
 
 from app.database import db
 
@@ -9,9 +12,20 @@ from app.database import db
 
 class Todo(db.Model):
     __tablename__ = "todo"
-    id = db.Column("id", db.Integer, primary_key=True)
-    category_id = db.Column("category_id", db.Integer, db.ForeignKey("category.id"))
-    priority_id = db.Column("priority_id", db.Integer, db.ForeignKey("priority.id"))
+    id = db.Column(
+        "id",
+        UUID(as_uuid=True),
+        primary_key=True,
+        default=uuid.uuid4,
+        unique=True,
+        nullable=False,
+    )
+    category_id = db.Column(
+        "category_id", UUID(as_uuid=True), db.ForeignKey("category.id"), nullable=False
+    )
+    priority_id = db.Column(
+        "priority_id", UUID(as_uuid=True), db.ForeignKey("priority.id"), nullable=False
+    )
     description = db.Column("description", db.Unicode)
     creation_date = db.Column(
         "created_data", db.DateTime, default=datetime.datetime.utcnow
@@ -24,12 +38,25 @@ class Todo(db.Model):
 
 class Priority(db.Model):
     __tablename__ = "priority"
-    id = db.Column("id", db.Integer, primary_key=True)
+    id = db.Column(
+        "id",
+        UUID(as_uuid=True),
+        primary_key=True,
+        default=uuid.uuid4,
+        unique=True,
+        nullable=False,
+    )
     name = db.Column("name", db.Unicode)
-    value = db.Column("value", db.Integer)
 
 
 class Category(db.Model):
     __tablename__ = "category"
-    id = db.Column("id", db.Integer, primary_key=True)
+    id = db.Column(
+        "id",
+        UUID(as_uuid=True),
+        primary_key=True,
+        default=uuid.uuid4,
+        unique=True,
+        nullable=False,
+    )
     name = db.Column("name", db.Unicode)
