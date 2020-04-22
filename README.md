@@ -1,18 +1,14 @@
 # todo-api-python
+[![Code style: black](https://img.shields.io/badge/code%20style-black-000000.svg)](https://github.com/psf/black)
+![Test CI](https://github.com/david-ellinger/todo-api-python/workflows/Test%20CI/badge.svg)
 
-- https://www.zeolearn.com/magazine/creating-a-restful-api-service-with-flask
+# Docker Commands
+`docker-compose run --service-ports server`
+`docker-compose run test`
 
-# Commands
-- Signup
-  `curl -X POST http://127.0.0.1:5000/v0.1/auth/signup -d 'username=dellinger&password=pass&email=david.ellinger@me.com'`
+# Environment
+- CI:
+   - Github Actions
+- Hosting:
+   - TBD
 
-
-# Planning
-## Server / API
-- REST
-   - /todo : Get
-   - /todo : Post
-   - /todo : Put
-   - /user/:id : Get
-- Authentication
-- MySql with SQLAlchemy

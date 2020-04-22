@@ -1,36 +1,46 @@
 version: "3.5"
 services:
-  server:
+  server: &server
     container_name: flask
     build: .
     ports: ['5000:5000']
     volumes: ['.:/usr/src/app']
     restart: always
     environment:
-      ENV: DEVELOPMENT
-      DB_USERNAME: username
-      DB_PASSWORD: password
-      DB_DATABASE: database_name
-      DB_HOST: localhost
+      ENV: dev
+      FLASK_APP: app/app.py
+      # DB_USERNAME: sa
+      # DB_PASSWORD: password
+      # DB_DATABASE: todo_db
+      # DB_HOST: localhost
+    command: "python -m flask run --host=0.0.0.0"
     links:
       - postgres
     networks:
       - todo-api
 
+  test:
+    <<: *server
+    ports: ['5000:5000']
+    volumes: ['.:/usr/src/app']
+    command: docker/run_tests.sh --format-code
+    environment:
+      ENV: test
+    stdin_open: true
+    tty: true
+
   postgres:
-    container_name: database
+    container_name: postgres
     image: postgres:latest
     restart: always
     environment:
-      POSTGRES_DB: database_name
+      POSTGRES_DB: todo_db
       POSTGRES_USER: sa
       POSTGRES_PASSWORD: password
     ports:
       - '5432:5432'
     expose:
       - '3306'
-    volumes:
-      - flask-db:/var/lib/postgresql/data
     links:
       - sqlpad
     networks:
@@ -42,20 +52,12 @@ services:
     ports:
       - 3000:3000
     environment:
-      SQLPAD_ADMIN: admin
-      SQLPAD_ADMIN_PASSWORD: password
-      SQLPAD_DEBUG: "true"
-      SQLPAD_CONNECTIONS__todo__name: "TODO DB"
-      SQLPAD_CONNECTIONS__todo__driver: postgres
-      SQLPAD_CONNECTIONS__todo__host: postgres
-      SQLPAD_CONNECTIONS__todo__port: 1433
-      SQLPAD_CONNECTIONS__todo__database: database_name
-      SQLPAD_CONNECTIONS__todo__username: sa
-      SQLPAD_CONNECTIONS__todo__password: password
+      SQLPAD_CONFIG: /etc/sqlpad/config.json
+    volumes:
+      - ./sqlpad_config.json:/etc/sqlpad/config.json
+      - ./seed-data:/etc/sqlpad/seed-data
     networks:
       - todo-api
-volumes:
-  flask-db:
 
 networks:
   todo-api:
