@@ -23,3 +23,4 @@ black
 flake8==3.7.9
 pytest-cov
 isort
+bandit

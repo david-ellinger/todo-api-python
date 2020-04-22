@@ -19,6 +19,16 @@ services:
     networks:
       - todo-api
 
+  lint:
+    <<: *server
+    ports: ['5000:5000']
+    volumes: ['.:/usr/src/app']
+    command: docker/run_linters.sh --format-code
+    environment:
+      ENV: test
+    stdin_open: true
+    tty: true
+
   test:
     <<: *server
     ports: ['5000:5000']
