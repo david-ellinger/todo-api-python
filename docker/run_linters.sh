@@ -37,4 +37,4 @@ flake8 .
 echo "Running bandit"
 bandit -r app
 
-pytest tests --cov-report html
+
