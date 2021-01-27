@@ -24,10 +24,12 @@ services:
     ports: ['5000:5000']
     volumes: ['.:/usr/src/app']
     command: docker/run_tests.sh --format-code
-    environment:
-      ENV: test
+    entrypoint: /bin/bash
     stdin_open: true
     tty: true
+    environment:
+      ENV: test
+
 
   postgres:
     container_name: postgres
