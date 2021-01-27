@@ -26,3 +26,13 @@ services:
     tty: true
     environment:
       ENV: test
+
+  lint:
+    <<: *server
+    ports: ['5000:5000']
+    volumes: ['.:/usr/src/app']
+    command: docker/run_linters.sh
+    environment:
+      ENV: test
+    stdin_open: true
+    tty: true

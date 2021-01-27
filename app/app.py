@@ -1,28 +1,31 @@
 from flask import Flask, jsonify
-from typing import Optional, Iterator
-from uuid import UUID
 from redis import Redis
 
-redis = Redis(host='redis', port=6379)
+redis = Redis(host="redis", port=6379)
+
 
 def create_app():
     app = Flask(__name__)
     # app.config['SQLALCHEMY_DATABASE_URI']
     return app
 
+
 app = create_app()
 
-if __name__ == '__main__':
-    app.run(debug=True, host='0.0.0.0', port=5000)
+if __name__ == "__main__":
+    app.run(debug=True, host="0.0.0.0", port=5000)
+
 
 @app.route("/")
 def ping():
     return jsonify(ping="pong")
 
-@app.route('/hit')
+
+@app.route("/hit")
 def hello():
-    redis.incr('hits')
-    return 'This Compose/Flask demo has been viewed %s time(s).' % redis.get('hits')
+    redis.incr("hits")
+    return "This Compose/Flask demo has been viewed %s time(s)." % redis.get("hits")
+
 
 # Base = declarative_base()
 
@@ -92,6 +95,3 @@ def hello():
 #     config_name = os.environ["ENV"]
 #     print(f"Loading {config_name} config")
 #     app.config.from_object(f"app.config.{config_name}.Config")
-
-
-
