@@ -1,64 +1,28 @@
 version: "3.5"
 services:
   server: &server
-    container_name: flask
     build: .
     ports: ['5000:5000']
     volumes: ['.:/usr/src/app']
     restart: always
     environment:
       ENV: dev
-      FLASK_APP: app/app.py
-      # DB_USERNAME: sa
-      # DB_PASSWORD: password
-      # DB_DATABASE: todo_db
-      # DB_HOST: localhost
-    command: "python -m flask run --host=0.0.0.0"
-    links:
-      - postgres
-    networks:
-      - todo-api
+      FLASK_APP: "app/app:app"
+    command: "python -m flask run --host=0.0.0.0 -p 5000"
+
+    depends_on:
+      - redis
+
+  redis:
+    image: redis
 
   test:
     <<: *server
     ports: ['5000:5000']
     volumes: ['.:/usr/src/app']
-    command: docker/run_tests.sh --format-code
-    environment:
-      ENV: test
+    command: docker/run_tests.sh
+    entrypoint: /bin/bash
     stdin_open: true
     tty: true
-
-  postgres:
-    container_name: postgres
-    image: postgres:latest
-    restart: always
     environment:
-      POSTGRES_DB: todo_db
-      POSTGRES_USER: sa
-      POSTGRES_PASSWORD: password
-    ports:
-      - '5432:5432'
-    expose:
-      - '3306'
-    links:
-      - sqlpad
-    networks:
-      - todo-api
-
-
-  sqlpad:
-    image: "sqlpad/sqlpad"
-    ports:
-      - 3000:3000
-    environment:
-      SQLPAD_CONFIG: /etc/sqlpad/config.json
-    volumes:
-      - ./sqlpad_config.json:/etc/sqlpad/config.json
-      - ./seed-data:/etc/sqlpad/seed-data
-    networks:
-      - todo-api
-
-networks:
-  todo-api:
-    name: todo-api
+      ENV: test
