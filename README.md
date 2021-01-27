@@ -14,3 +14,10 @@
   - Github Actions
 - Hosting:
   - TBD
+
+## Features
+
+- Query / Mutations for Todo
+- Persist sqlite
+- persist postgres later
+- import ticktick data
